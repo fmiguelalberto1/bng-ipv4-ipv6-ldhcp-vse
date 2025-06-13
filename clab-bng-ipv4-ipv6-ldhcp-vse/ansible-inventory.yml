@@ -1,0 +1,38 @@
+all:
+  vars:
+    # The generated inventory is assumed to be used from the clab host.
+    # Hence no http proxy should be used. Therefore we make sure the http
+    # module does not attempt using any global http proxy.
+    ansible_httpapi_use_proxy: false
+  children:
+    linux:
+      hosts:
+        clab-bng-ipv4-ipv6-ldhcp-vse-gnmic:
+          ansible_host: 172.20.20.2
+        clab-bng-ipv4-ipv6-ldhcp-vse-host1:
+          ansible_host: 172.20.20.5
+        clab-bng-ipv4-ipv6-ldhcp-vse-host2:
+          ansible_host: 172.20.20.7
+        clab-bng-ipv4-ipv6-ldhcp-vse-host3:
+          ansible_host: 172.20.20.9
+    nokia_sros:
+      vars:
+        ansible_network_os: nokia.sros.md
+        # default connection type for nodes of this kind
+        # feel free to override this in your inventory
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_user: admin
+        ansible_password: admin
+      hosts:
+        clab-bng-ipv4-ipv6-ldhcp-vse-agg1:
+          ansible_host: 172.20.20.10
+        clab-bng-ipv4-ipv6-ldhcp-vse-agg2:
+          ansible_host: 172.20.20.6
+        clab-bng-ipv4-ipv6-ldhcp-vse-bng1:
+          ansible_host: 172.20.20.4
+        clab-bng-ipv4-ipv6-ldhcp-vse-bng2:
+          ansible_host: 172.20.20.8
+        clab-bng-ipv4-ipv6-ldhcp-vse-olt1:
+          ansible_host: 172.20.20.11
+        clab-bng-ipv4-ipv6-ldhcp-vse-olt2:
+          ansible_host: 172.20.20.3
