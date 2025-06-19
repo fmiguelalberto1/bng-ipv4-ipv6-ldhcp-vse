@@ -11,10 +11,10 @@ topology:
     nokia_sros:
       image: vrnetlab/nokia_sros:24.10.R2
       license: ../license-sros-24.txt
-    #    linux:
-    #      image: fmiguelalberto/ubuntu-miguel6:latest
     linux:
-      image: fmiguelalberto/bngblaster 
+      image: fmiguelalberto/ubuntu-miguel6:latest
+    openwrt:
+      image: vrnetlab/openwrt_openwrt:23.05.5
   nodes:
     bng1:
       # SR-1
@@ -24,8 +24,8 @@ topology:
       ports:
         - 50101:22
       labels:
-        graph-posX: "735"
-        graph-posY: "155"
+        graph-posX: "645"
+        graph-posY: "565"
         graph-groupLabelPos: bottom-center
     bng2:
       # SR-1
@@ -35,8 +35,8 @@ topology:
       ports:
         - 50201:22
       labels:
-        graph-posX: "735"
-        graph-posY: "215"
+        graph-posX: "645"
+        graph-posY: "635"
         graph-groupLabelPos: bottom-center
     agg1:
       # IXR-X1
@@ -49,8 +49,8 @@ topology:
       ports:
         - 50301:22
       labels:
-        graph-posX: "615"
-        graph-posY: "155"
+        graph-posX: "545"
+        graph-posY: "565"
         graph-groupLabelPos: bottom-center
     agg2:
       # IXR-X1
@@ -63,8 +63,8 @@ topology:
       ports:
         - 50401:22
       labels:
-        graph-posX: "615"
-        graph-posY: "215"
+        graph-posX: "555"
+        graph-posY: "635"
         graph-groupLabelPos: bottom-center
     olt1:
       # SR-1
@@ -74,8 +74,8 @@ topology:
       ports:
         - 50501:22
       labels:
-        graph-posX: "485"
-        graph-posY: "155"
+        graph-posX: "454"
+        graph-posY: "565"
         graph-groupLabelPos: bottom-center
     olt2:
       # SR-1
@@ -85,30 +85,46 @@ topology:
       ports:
         - 50601:22
       labels:
-        graph-posX: "485"
-        graph-posY: "215"
+        graph-posX: "455"
+        graph-posY: "635"
         graph-groupLabelPos: bottom-center
     host1:
       kind: linux
       ports:
         - 51101:22
       labels:
-        graph-posX: "385"
-        graph-posY: "145"
+        graph-posX: "375"
+        graph-posY: "525"
         graph-groupLabelPos: bottom-center
     host2:
       kind: linux
       ports:
         - 51201:22
       labels:
-        graph-posX: "385"
-        graph-posY: "215"
+        graph-posX: "375"
+        graph-posY: "635"
         graph-groupLabelPos: bottom-center
     host3:
+      kind: openwrt
+      ports:
+        - 8081:80 # required for LuCI web interface (HTTP); adjust host ports if running multiple nodes or based on your setup
+        - 8423:443 # required for LuCI web interface (HTTPS); adjust host ports if running multiple nodes or based on your setup
+      env:
+        USERNAME: root # default: root
+        PASSWORD: mypassword # default: VR-netlab9
+        CLAB_MGMT_PASSTHROUGH: "false" # default: "false"
+        PACKET_REPOSITORY_DNS_SERVER: 8.8.8.8 # default 8.8.8.8
+        PACKET_REPOSITORY_DOMAINS: "example.com" # additional repository domains (space-separated); creates a host route via the MGMT interface
+        PACKAGES: "tinc htop tcpdump btop luci-proto-gre" # installed on boot if not already present
+      labels:
+        graph-posX: "405"
+        graph-posY: "565"
+        graph-groupLabelPos: bottom-center
+    host31:
       kind: linux
       labels:
-        graph-posX: "385"
-        graph-posY: "175"
+        graph-posX: "335"
+        graph-posY: "565"
         graph-groupLabelPos: bottom-center
     gnmic:
       kind: linux
@@ -117,8 +133,8 @@ topology:
       exec:
         - ip addr add 10.1.8.8/24 dev eth1
       labels:
-        graph-posX: "835"
-        graph-posY: "155"
+        graph-posX: "715"
+        graph-posY: "565"
         graph-groupLabelPos: bottom-center
   links:
     - endpoints: [ "bng1:eth2", "bng2:eth2" ]
@@ -132,3 +148,4 @@ topology:
     - endpoints: [ "olt2:eth1", "host2:eth1" ]
     - endpoints: [ "bng1:eth5", "gnmic:eth1" ]
     - endpoints: [ "olt1:eth5", "host3:eth1" ]
+    - endpoints: [ "host3:eth2", "host31:eth1" ]
