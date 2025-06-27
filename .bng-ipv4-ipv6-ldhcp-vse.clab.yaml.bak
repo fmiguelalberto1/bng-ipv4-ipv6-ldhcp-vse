@@ -12,9 +12,9 @@ topology:
       image: vrnetlab/nokia_sros:24.10.R2
       license: ../license-sros-24.txt
     linux:
-      image: fmiguelalberto/ubuntu-miguel6:latest
+      image: fmiguelalberto/bngblaster2
     openwrt:
-      image: vrnetlab/openwrt_openwrt:23.05.5
+      image: vrnetlab/openwrt_openwrt:24.10.0
   nodes:
     bng1:
       # SR-1
