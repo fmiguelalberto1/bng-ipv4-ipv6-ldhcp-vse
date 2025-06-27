@@ -122,6 +122,7 @@ topology:
         graph-groupLabelPos: bottom-center
     host31:
       kind: linux
+      image: fmiguelalberto/ubuntu-miguel6
       labels:
         graph-posX: "335"
         graph-posY: "565"

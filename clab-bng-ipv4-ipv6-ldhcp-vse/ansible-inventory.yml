@@ -8,13 +8,13 @@ all:
     linux:
       hosts:
         clab-bng-ipv4-ipv6-ldhcp-vse-gnmic:
-          ansible_host: 172.20.20.10
+          ansible_host: 172.20.20.7
         clab-bng-ipv4-ipv6-ldhcp-vse-host1:
-          ansible_host: 172.20.20.11
+          ansible_host: 172.20.20.10
         clab-bng-ipv4-ipv6-ldhcp-vse-host2:
-          ansible_host: 172.20.20.2
-        clab-bng-ipv4-ipv6-ldhcp-vse-host31:
           ansible_host: 172.20.20.3
+        clab-bng-ipv4-ipv6-ldhcp-vse-host31:
+          ansible_host: 172.20.20.6
     nokia_sros:
       vars:
         ansible_network_os: nokia.sros.md
@@ -25,18 +25,18 @@ all:
         ansible_password: admin
       hosts:
         clab-bng-ipv4-ipv6-ldhcp-vse-agg1:
-          ansible_host: 172.20.20.6
+          ansible_host: 172.20.20.4
         clab-bng-ipv4-ipv6-ldhcp-vse-agg2:
-          ansible_host: 172.20.20.5
+          ansible_host: 172.20.20.2
         clab-bng-ipv4-ipv6-ldhcp-vse-bng1:
-          ansible_host: 172.20.20.12
-        clab-bng-ipv4-ipv6-ldhcp-vse-bng2:
           ansible_host: 172.20.20.8
+        clab-bng-ipv4-ipv6-ldhcp-vse-bng2:
+          ansible_host: 172.20.20.12
         clab-bng-ipv4-ipv6-ldhcp-vse-olt1:
           ansible_host: 172.20.20.9
         clab-bng-ipv4-ipv6-ldhcp-vse-olt2:
-          ansible_host: 172.20.20.4
+          ansible_host: 172.20.20.5
     openwrt:
       hosts:
         clab-bng-ipv4-ipv6-ldhcp-vse-host3:
-          ansible_host: 172.20.20.7
+          ansible_host: 172.20.20.11
