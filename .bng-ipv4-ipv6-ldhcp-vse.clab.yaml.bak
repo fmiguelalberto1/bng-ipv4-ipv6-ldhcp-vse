@@ -74,7 +74,7 @@ topology:
       ports:
         - 50501:22
       labels:
-        graph-posX: "454"
+        graph-posX: "455"
         graph-posY: "565"
         graph-groupLabelPos: bottom-center
     olt2:
@@ -89,9 +89,19 @@ topology:
         graph-posY: "635"
         graph-groupLabelPos: bottom-center
     host1:
-      kind: linux
+      kind: openwrt
+      exec:
+        - ip addr add 192.168.1.1/24 dev eth2
       ports:
-        - 51101:22
+        - 8081:80 # required for LuCI web interface (HTTP); adjust host ports if running multiple nodes or based on your setup
+        - 4431:443 # required for LuCI web interface (HTTPS); adjust host ports if running multiple nodes or based on your setup
+      env:
+        USERNAME: root # default: root
+        PASSWORD: mypassword # default: VR-netlab9
+        CLAB_MGMT_PASSTHROUGH: "false" # default: "false"
+        PACKET_REPOSITORY_DNS_SERVER: 8.8.8.8 # default 8.8.8.8
+        PACKET_REPOSITORY_DOMAINS: "example.com" # additional repository domains (space-separated); creates a host route via the>
+        PACKAGES: "tinc htop tcpdump btop luci-proto-gre" # installed on boot if not already present
       labels:
         graph-posX: "375"
         graph-posY: "525"
@@ -106,9 +116,11 @@ topology:
         graph-groupLabelPos: bottom-center
     host3:
       kind: openwrt
+      exec:
+        - ip addr add 192.168.3.1/24 dev eth2
       ports:
-        - 8081:80 # required for LuCI web interface (HTTP); adjust host ports if running multiple nodes or based on your setup
-        - 8423:443 # required for LuCI web interface (HTTPS); adjust host ports if running multiple nodes or based on your setup
+        - 8080:80 # required for LuCI web interface (HTTP); adjust host ports if running multiple nodes or based on your setup
+        - 8433:443 # required for LuCI web interface (HTTPS); adjust host ports if running multiple nodes or based on your setup
       env:
         USERNAME: root # default: root
         PASSWORD: mypassword # default: VR-netlab9
@@ -117,15 +129,15 @@ topology:
         PACKET_REPOSITORY_DOMAINS: "example.com" # additional repository domains (space-separated); creates a host route via the MGMT interface
         PACKAGES: "tinc htop tcpdump btop luci-proto-gre" # installed on boot if not already present
       labels:
-        graph-posX: "405"
-        graph-posY: "565"
+        graph-posX: "375"
+        graph-posY: "595"
         graph-groupLabelPos: bottom-center
     host31:
       kind: linux
       image: fmiguelalberto/ubuntu-miguel6
       labels:
-        graph-posX: "335"
-        graph-posY: "565"
+        graph-posX: "315"
+        graph-posY: "545"
         graph-groupLabelPos: bottom-center
     gnmic:
       kind: linux
